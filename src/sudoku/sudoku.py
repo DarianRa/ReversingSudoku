@@ -1,7 +1,9 @@
 class sudoku:
     '''this class represents a sudoku.'''
     
-    ''' This is the constructor of the class and sets the values attribute to the numbers given as a string'''
+    ''' This is the constructor of the class and sets the values attribute to the numbers given as a string.
+    The sudoku is saved in values in form of an 81 character string, which represents all of the rows concatenated starting with row#1.
+        So row#1 + row#2 + ... + row#9'''
     def __new__(self, numbers: str):
         
         if( len(numbers) != 81) :
@@ -9,24 +11,48 @@ class sudoku:
         if( not numbers.isdigit()):
             raise ValueError(f"A Sudoku may only contain digits as characters")
         
-        ''' The sudoku is saved here in form of an 81 character string, which represents all of the rows concatenated starting with row#1.
-        So row#1 + row#2 + ... + row#9'''
         self.values = numbers
 
 
 
-    def validator():
-        pass
+
+    def validator(sudoku: str)-> bool:  # Noch nicht ganz fertig
+        sudoku = list(sudoku)
+        def check_list(s: list)-> bool:
+            seen = set()
+            for x in s:
+                if x in seen:
+                    return False
+                else:
+                    seen.add(x)
+            return True
+        for i in range(9):
+            row = sudoku[i*9:(i+1)*9]
+            valid_row = check_list(row)
+            if not valid_row:
+                return False
+        for i in range(9):
+            collum = sudoku[i::9]
+            valid_collum = check_list(collum)
+            if not valid_collum:
+                return False
+        for i in range(9):
+            block_i = []
+            for k in range(3):
+                block_i.append(sudoku[(i*3)+(k*9):(i*3)+(k*9)+3])
+            print(block_i)
+        return True
+    
+
+
 
     def solver():
         pass
 
-    def printer(self):
-
+    def prettyprint(self):
         def cell(ch: str) -> str:
             return "." if ch in ("0", ".") else ch
-
-
+        
         lines = []
         border = "+-------+-------+-------+"
         lines.append(border)
@@ -35,13 +61,14 @@ class sudoku:
             row = []
             for c in range(9):
                 row.append(cell(self.values[r * 9 + c]))
-
             lines.append(
                 "| " + " ".join(row[0:3]) +
                 " | " + " ".join(row[3:6]) +
                 " | " + " ".join(row[6:9]) + " |"
             )
-
             if r in (2,5,8):
                 lines.append(border)
         return "\n".join(lines)
+    
+    def print_exs_format():
+        pass
