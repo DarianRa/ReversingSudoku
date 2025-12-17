@@ -16,8 +16,8 @@ class sudoku:
 
 
 
-    def validator(sudoku: str)-> bool:
-        sudoku = list(sudoku)
+    def validator(self)-> bool:
+        sudoku = list(self.values)
 
         def check_list(s: list)-> bool:
             seen = set()
@@ -32,26 +32,29 @@ class sudoku:
             row = sudoku[i*9:(i+1)*9]
             valid_row = check_list(row)
             if not valid_row:
-                return False
+                self.validity = False
+                return
         
         for i in range(9):
             collum = sudoku[i::9]
             valid_collum = check_list(collum)
             if not valid_collum:
-                return False
+                self.validity
+                return
         
         blocks = [[] for _ in range(9)]
         for i,ch in enumerate(sudoku):
             r, c = divmod(i,9)
             b = (r//3) * 3 + (c//3)
             blocks[b].append(ch)
-        print(blocks)
         for i in blocks:
             valid_box = check_list(i)
             if not valid_box:
-                return False
+                self.validity = False
+                return
             
-        return True
+        self.validity = True
+        return
     
 
 
@@ -80,5 +83,40 @@ class sudoku:
                 lines.append(border)
         return "\n".join(lines)
     
-    def print_exs_format():
-        pass
+    def print_exs_format(self) -> str:
+        if not hasattr(self, "validity"):
+            self.validator()
+        sudoku = self.values
+        result_string = ""
+        if self.validity:
+            result_string = result_string + "pos(valid_sudoku(\n"
+        else:
+            result_string = result_string + "neg(valid_suduoku(\n"
+        
+        for i in range(9):
+            row = sudoku[i*9:(i+1)*9]
+            result_string += "  row(["
+            for j in row:
+                result_string += f"{j}, "
+            result_string += "]),\n"
+        result_string += "\n"
+        for i in range(9):
+            collum = sudoku[i::9]
+            result_string += "  col(["
+            for j in collum:
+                result_string += f"{j}, "
+            result_string += "]),\n"
+        result_string += "\n"
+
+        blocks = [[] for _ in range(9)]
+        for i,ch in enumerate(sudoku):
+            r, c = divmod(i,9)
+            b = (r//3) * 3 + (c//3)
+            blocks[b].append(ch)
+        for i in blocks:
+            result_string += "block(["
+            for j in i:
+                result_string += f"{j}, "
+            result_string += "]),\n"
+        result_string += "))."
+        return result_string
