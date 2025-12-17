@@ -16,8 +16,9 @@ class sudoku:
 
 
 
-    def validator(sudoku: str)-> bool:  # Noch nicht ganz fertig
+    def validator(sudoku: str)-> bool:
         sudoku = list(sudoku)
+
         def check_list(s: list)-> bool:
             seen = set()
             for x in s:
@@ -26,21 +27,30 @@ class sudoku:
                 else:
                     seen.add(x)
             return True
+
         for i in range(9):
             row = sudoku[i*9:(i+1)*9]
             valid_row = check_list(row)
             if not valid_row:
                 return False
+        
         for i in range(9):
             collum = sudoku[i::9]
             valid_collum = check_list(collum)
             if not valid_collum:
                 return False
-        for i in range(9):
-            block_i = []
-            for k in range(3):
-                block_i.append(sudoku[(i*3)+(k*9):(i*3)+(k*9)+3])
-            print(block_i)
+        
+        blocks = [[] for _ in range(9)]
+        for i,ch in enumerate(sudoku):
+            r, c = divmod(i,9)
+            b = (r//3) * 3 + (c//3)
+            blocks[b].append(ch)
+        print(blocks)
+        for i in blocks:
+            valid_box = check_list(i)
+            if not valid_box:
+                return False
+            
         return True
     
 
