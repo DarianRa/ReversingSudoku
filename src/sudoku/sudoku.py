@@ -9,6 +9,8 @@ class sudoku:
         if( not numbers.isdigit()):
             raise ValueError(f"A Sudoku may only contain digits as characters")
         
+        ''' The sudoku is saved here in form of an 81 character string, which represents all of the rows concatenated starting with row#1.
+        So row#1 + row#2 + ... + row#9'''
         self.values = numbers
 
 
