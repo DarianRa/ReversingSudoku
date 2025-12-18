@@ -4,7 +4,7 @@ class sudoku:
     ''' This is the constructor of the class and sets the values attribute to the numbers given as a string.
     The sudoku is saved in values in form of an 81 character string, which represents all of the rows concatenated starting with row#1.
         So row#1 + row#2 + ... + row#9'''
-    def __new__(self, numbers: str):
+    def __init__(self, numbers: str):
         
         if( len(numbers) != 81) :
             raise ValueError(f"Expected 81 characters, but got {len(numbers)}.")

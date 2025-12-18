@@ -1,4 +1,5 @@
 import subprocess
+import sudoku.sudoku
 
 cmd = [
     "python3",
