@@ -83,40 +83,101 @@ class sudoku:
                 lines.append(border)
         return "\n".join(lines)
     
+
     def print_exs_format(self) -> str:
         if not hasattr(self, "validity"):
             self.validator()
+
         sudoku = self.values
-        result_string = ""
-        if self.validity:
-            result_string = result_string + "pos(valid_sudoku(\n"
-        else:
-            result_string = result_string + "neg(valid_suduoku(\n"
-        
+        lines = []
+
+        head = "pos(valid_sudoku(" if self.validity else "neg(valid_suduoku("
+        lines.append(head)
+        lines.append("sudoku(")
+
+        # rows
         for i in range(9):
             row = sudoku[i*9:(i+1)*9]
-            result_string += "  row(["
-            for j in row:
-                result_string += f"{j}, "
-            result_string += "]),\n"
-        result_string += "\n"
-        for i in range(9):
-            collum = sudoku[i::9]
-            result_string += "  col(["
-            for j in collum:
-                result_string += f"{j}, "
-            result_string += "]),\n"
-        result_string += "\n"
+            row_str = ",".join(str(j) for j in row)
+            lines.append(f"  row([{row_str}]),")
 
+        lines.append("")
+
+        # columns
+        for i in range(9):
+            col = sudoku[i::9]
+            col_str = ",".join(str(j) for j in col)
+            lines.append(f"  col([{col_str}]),")
+
+        lines.append("")
+
+        # blocks
         blocks = [[] for _ in range(9)]
-        for i,ch in enumerate(sudoku):
-            r, c = divmod(i,9)
-            b = (r//3) * 3 + (c//3)
+        for i, ch in enumerate(sudoku):
+            r, c = divmod(i, 9)
+            b = (r // 3) * 3 + (c // 3)
             blocks[b].append(ch)
-        for i in blocks:
-            result_string += "block(["
-            for j in i:
-                result_string += f"{j}, "
-            result_string += "]),\n"
-        result_string += "))."
-        return result_string
+
+        for idx, block in enumerate(blocks):
+            block_str = ",".join(str(j) for j in block)
+            # last block has no trailing comma
+            comma = "," if idx < 8 else ""
+            lines.append(f"  block([{block_str}]){comma}")
+
+        lines.append("))).")
+
+        return "\n".join(lines)
+
+    
+    def print_exs_format_fake_duplicate(self, type='row', idx=0) -> str:
+        if not hasattr(self, "validity"):
+            self.validator()
+
+        if not self.validity:
+            return ""
+
+        sudoku = self.values
+        lines = []
+
+        lines.append("neg(valid_suduoku(")
+        lines.append("sudoku(")
+
+        # rows
+        for i in range(9):
+            row = sudoku[i*9:(i+1)*9]
+            if type == 'row' and idx == i:
+                row = ["1"] * 9
+            row_str = ",".join(str(j) for j in row)
+            lines.append(f"  row([{row_str}]),")
+
+        lines.append("")
+
+        # columns
+        for i in range(9):
+            col = sudoku[i::9]
+            if type == 'col' and idx == i:
+                col = ["1"] * 9
+            col_str = ",".join(str(j) for j in col)
+            lines.append(f"  col([{col_str}]),")
+
+        lines.append("")
+
+        # blocks
+        blocks = [[] for _ in range(9)]
+        for i, ch in enumerate(sudoku):
+            r, c = divmod(i, 9)
+            b = (r // 3) * 3 + (c // 3)
+            blocks[b].append(ch)
+
+        for b_idx, block in enumerate(blocks):
+            if type == 'block' and idx == b_idx:
+                block = ["1"] * 9
+            block_str = ",".join(str(j) for j in block)
+            comma = "," if b_idx < 8 else ""
+            lines.append(f"  block([{block_str}]){comma}")
+
+        lines.append("))).")
+
+        return "\n".join(lines)
+
+        
