@@ -14,11 +14,6 @@ type(get_row,(int,sudoku,list_t)).
 type(get_col,(int,sudoku,list_t)).
 type(get_block,(int,sudoku,list_t)).
 
-% ---------- recall ----------
-max_recall(valid_piece,1).
-max_recall(get_row,1).
-max_recall(get_col,1).
-max_recall(get_block,1).
 
 % ---------- predicate invention ----------
 max_inv_preds(1000).
