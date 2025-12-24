@@ -7,7 +7,7 @@ from kagglehub import KaggleDatasetAdapter
 from sudoku.sudoku import sudoku
 
 DATA_PER_TYPE = 10
-OUTPUT_PATH = "data/processed/exes.pl"
+OUTPUT_PATH = "data/processed/exs.pl"
 
 # Load the dataset
 file_path = "sudoku.csv"
@@ -20,7 +20,7 @@ df = kagglehub.load_dataset(
 def get_data(data_per_type=DATA_PER_TYPE, output_path=OUTPUT_PATH):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    exs_lines = []
+    exs_lines = [":- discontiguous neg/1.\n:- discontiguous pos/1.\n\n"]
 
     for idx, row in df.iterrows():
         if idx >= data_per_type:
@@ -32,6 +32,10 @@ def get_data(data_per_type=DATA_PER_TYPE, output_path=OUTPUT_PATH):
         s = sudoku(solution)
 
         exs_str = s.print_exs_format()
+        for type in ['row', 'col', 'block']:
+            for idx in range(9):
+                    exs_fake = s.print_exs_format_fake_duplicate(type, idx)
+                    exs_lines.append(exs_fake)
         exs_lines.append(exs_str)
 
     with open(output_path, "w", encoding="utf-8") as f:
