@@ -13,4 +13,7 @@ tomli==2.3.0
 typing_extensions==4.15.0
 tzdata==2025.3
 kagglehub==0.3.13
+clingo==5.8.0
+janus-swi==1.5.2
+python-sat==1.8.dev26
 git+https://github.com/logic-and-learning-lab/Popper@main
