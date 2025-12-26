@@ -62,6 +62,8 @@ class sudoku:
     def solver():
         pass
 
+    
+
     def prettyprint(self):
         def cell(ch: str) -> str:
             return "." if ch in ("0", ".") else ch

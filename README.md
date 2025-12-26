@@ -7,3 +7,11 @@ Usage of virtual environment:
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+
+or for windows:
+
+python3 -m venv venv
+.\venv\Scripts\Activate.ps1
+pip3 install -r requirements.txt
+
+
