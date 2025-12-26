@@ -8,11 +8,19 @@ body_pred(get_col,3).
 body_pred(get_block,3).
 
 % ---------- types ----------
-type(valid_piece,(list_t)).
+type(row, list(int)).
+type(col, list(int)).
+type(block, list(int)). 
+type(sudoku, (
+    row, row, row, row, row, row, row, row, row,
+    col, col, col, col, col, col, col, col, col,
+    block, block, block, block, block, block, block, block, block
+)).
+type(valid_piece,(list(int))).
 type(valid_sudoku,(sudoku)).
-type(get_row,(int,sudoku,list_t)).
-type(get_col,(int,sudoku,list_t)).
-type(get_block,(int,sudoku,list_t)).
+type(get_row,(idx,sudoku,row)).
+type(get_col,(idx,sudoku,col)).
+type(get_block,(idx,sudoku,block)).
 
 
 % ---------- predicate invention ----------
