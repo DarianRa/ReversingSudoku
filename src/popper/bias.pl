@@ -11,18 +11,23 @@ body_pred(get_block,3).
 type(row, list(int)).
 type(col, list(int)).
 type(block, list(int)). 
+
 type(sudoku, (
     row, row, row, row, row, row, row, row, row,
     col, col, col, col, col, col, col, col, col,
     block, block, block, block, block, block, block, block, block
 )).
-type(valid_piece,(list(int))).
+
+% valid_piece only works on concrete row/col/block returned by getters
+type(valid_piece, (row)).
+type(valid_piece, (col)).
+type(valid_piece, (block)).
+
 type(valid_sudoku,(sudoku)).
 type(get_row,(idx,sudoku,row)).
 type(get_col,(idx,sudoku,col)).
 type(get_block,(idx,sudoku,block)).
 
-
 % ---------- predicate invention ----------
-max_inv_preds(1000).
-max_inv_bodies(1000).
+max_vars(6).
+max_body(6).
