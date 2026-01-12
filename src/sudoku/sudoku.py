@@ -93,7 +93,7 @@ class sudoku:
         sudoku = self.values
         lines = []
 
-        head = "pos(valid_sudoku(" if self.validity else "neg(valid_suduoku("
+        head = "pos(valid_sudoku(" if self.validity else "neg(valid_sudoku("
         lines.append(head)
         lines.append("sudoku(")
 
@@ -131,7 +131,7 @@ class sudoku:
         return "\n".join(lines)
 
     
-    def print_exs_format_fake_duplicate(self, type='row', idx=0) -> str:
+    def print_exs_format_wrong_row(self, type='row', idx=0) -> str:
         if not hasattr(self, "validity"):
             self.validator()
 
@@ -181,5 +181,10 @@ class sudoku:
         lines.append("))).")
 
         return "\n".join(lines)
+    
+
+
+    def print_exs_format_wrong_collum(self, type='row', idx=0) -> str:
+        pass
 
         

@@ -1,30 +1,10 @@
-% ---------- head ----------
 head_pred(valid_sudoku,1).
+body_pred(all_blocks_valid,1).
+body_pred(all_rows_valid,1).
+body_pred(all_cols_valid,1).
 
-% ---------- body predicates ----------
-body_pred(valid_piece,1).
-body_pred(get_row,3).
-body_pred(get_col,3).
-body_pred(get_block,3).
-
-type(idx, int).
-
-type(sudoku, tuple(
-    row,row,row,row,row,row,row,row,row,
-    col,col,col,col,col,col,col,col,col,
-    block,block,block,block,block,block,block,block,block
-)).
-
-type(valid_piece, pice).
-type(piece, row).
-type(piece, col).
-type(piece, block).
-
-type(valid_sudoku, sudoku).
-type(get_row, (idx, sudoku, row)).
-type(get_col, (idx, sudoku, col)).
-type(get_block, (idx, sudoku, block)).
-
-% ---------- predicate invention ----------
-max_vars(3).
-max_body(27).
+% optional but helpful:
+type(valid_sudoku,(sudoku,)).
+type(all_blocks_valid,(sudoku,)).
+type(all_rows_valid,(sudoku,)).
+type(all_cols_valid,(sudoku,)).

@@ -39,3 +39,9 @@ idx(6).
 idx(7).
 idx(8).
 idx(9).
+
+
+%---------- cheating ----------
+all_blocks_valid(S) :- \+ (idx(N), get_block(N,S,B), \+ valid_piece(B)).
+all_rows_valid(S)   :- \+ (idx(N), get_row(N,S,R),  \+ valid_piece(R)).
+all_cols_valid(S)   :- \+ (idx(N), get_col(N,S,C),  \+ valid_piece(C)).
