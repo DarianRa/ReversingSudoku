@@ -1,3 +1,5 @@
+import random
+
 class sudoku:
     '''this class represents a sudoku.'''
     
@@ -131,7 +133,7 @@ class sudoku:
         return "\n".join(lines)
 
     
-    def print_exs_format_wrong_row(self, type='row', idx=0) -> str:
+    def print_exs_format_fake_duplicate(self, type='row', idx=0) -> str:
         if not hasattr(self, "validity"):
             self.validator()
 
@@ -183,8 +185,130 @@ class sudoku:
         return "\n".join(lines)
     
 
+    '''
+    This function will create 3 wrong examples. Each error type will be isolated in each of the examples.
+    The first part will choose a random number between 0 and 8 and will create an error in that specific row.
+    The second part will do the same and create an error in a column.
+    The third will do the same for each block.
 
-    def print_exs_format_wrong_collum(self, type='row', idx=0) -> str:
-        pass
+    Not working 100% yet!
+    '''
+    def print_exs_format_isolated_errors(self, type='row', idx=0) -> str:
+        if not hasattr(self, "validity"):
+            self.validator()
+
+        if not self.validity:
+            return ""
+
+        self.values
+        lines = []
+
+        lines.append(self.print_exs_format())
+
+
+        # creating erroneous columns
+        error_row = random.randint(0,9)
+        error_1_column = random.randint(0,9)
+        seed = random.randint(0,1)
+        check = error_1_column%3
+        if check == 0:
+            if seed == 0:
+                error_2_column = error_1_column + 1 
+            else:
+                error_2_column = error_1_column + 2
+        elif check == 1:
+            if seed == 0:
+                error_2_column = error_1_column - 1 
+            else:
+                error_2_column = error_1_column + 1
+        else:
+            if seed == 0:
+                error_2_column = error_1_column - 2 
+            else:
+                error_2_column = error_1_column - 1 
+
+        print(f"debug: error_row: {error_row}, collums: {error_1_column}, {error_2_column}")
+        
+        value_1 = self.values[error_row*9 + error_1_column]
+        value_2 = self.values[error_row*9 + error_2_column]
+
+        false_sudoku_values = list(self.values)
+        false_sudoku_values[error_row*9 + error_1_column] = value_2
+        false_sudoku_values[error_row*9 + error_2_column] = value_1
+        false_sudoku_values = "".join(false_sudoku_values)
+        false_sudoku_row = sudoku(false_sudoku_values)
+        lines.append(false_sudoku_row.print_exs_format())
+
+
+        # creating erroneous rows
+        error_column = random.randint(0,8)
+        error_1_row = random.randint(0,8)
+        seed = random.randint(0,1)
+        check = error_1_row%3
+        if check == 0:
+            if seed == 0:
+                error_2_row = error_1_row + 1 
+            else:
+                error_2_row = error_1_row + 2
+        elif check == 1:
+            if seed == 0:
+                error_2_row = error_1_row - 1 
+            else:
+                error_2_row = error_1_row + 1
+        else:
+            if seed == 0:
+                error_2_row = error_1_row - 2 
+            else:
+                error_2_row = error_1_row - 1
+
+        print(f"debugging collum: {error_column}, rows: {error_1_row}, {error_2_row}")
+
+
+        value_1 = self.values[error_row*9 + error_1_column]
+        value_2 = self.values[error_row*9 + error_2_column]
+
+        false_sudoku_values = list(self.values)
+        false_sudoku_values[error_1_row*9 + error_column] = value_2
+        false_sudoku_values[error_2_row*9 + error_column] = value_1
+        false_sudoku_values = "".join(false_sudoku_values)
+        false_sudoku_column = sudoku(false_sudoku_values)
+        lines.append(false_sudoku_column.print_exs_format())
+
+        # creating erroneous blocks
+        row_1_index = random.randint(0,8)
+        check = row_1_index//3
+        seed = random.randint(0,5)
+
+        if check == 0:
+            row_2_index = 3 + seed
+        elif check == 2:
+            row_2_index = seed
+        else:
+            if seed < 3:
+                row_2_index = seed
+            else:
+                row_2_index = seed + 3
+
+        print(f"debugging blocks, rows: {row_1_index}, {row_2_index}")
+
+        row_1 = self.values[row_1_index*9:(row_1_index+1)*9]
+        row_2 = self.values[row_2_index*9:(row_2_index+1)*9]
+
+        row_1 = list(row_1).copy()
+        row_2 = list(row_2).copy()
+
+        false_sudoku_block_values = list(self.values)
+
+        false_sudoku_block_values[row_1_index*9:(row_1_index+1)*9] = row_2
+        false_sudoku_block_values[row_2_index*9:(row_2_index+1)*9] = row_1
+
+        false_sudoku_block = sudoku("".join(false_sudoku_block_values))
+        lines.append(false_sudoku_block.print_exs_format())
+
+        return "\n".join(lines)
+
+        # one example for 
+
+
 
         
