@@ -6,6 +6,7 @@ body_pred(valid_piece,1).
 body_pred(get_row,3).
 body_pred(get_col,3).
 body_pred(get_block,3).
+body_pred(idx, 1).
 
 type(idx, int).
 
@@ -26,5 +27,5 @@ type(get_col, (idx, sudoku, col)).
 type(get_block, (idx, sudoku, block)).
 
 % ---------- predicate invention ----------
-max_vars(3).
-max_body(27).
+max_vars(9).
+max_body(9).
