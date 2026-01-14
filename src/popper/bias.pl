@@ -16,7 +16,7 @@ type(sudoku, tuple(
     block,block,block,block,block,block,block,block,block
 )).
 
-type(valid_piece, pice).
+type(valid_piece, piece).
 type(piece, row).
 type(piece, col).
 type(piece, block).
