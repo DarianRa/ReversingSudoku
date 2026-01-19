@@ -32,7 +32,7 @@ sudoku(
   block([2,7,6,1,8,3,9,4,5]),
   block([3,9,1,4,7,5,8,6,2])
 ))).
-neg(valid_suduoku(
+neg(valid_sudoku(
 sudoku(
   row([1,1,1,1,1,1,1,1,1]),
   row([5,4,3,7,2,9,6,1,8]),

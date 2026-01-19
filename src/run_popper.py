@@ -1,5 +1,7 @@
 import subprocess
 import sudoku.sudoku
+from popper.util import Settings
+
 
 cmd = [
     "python3",
