@@ -6,7 +6,7 @@ import kagglehub
 from kagglehub import KaggleDatasetAdapter
 from sudoku.sudoku import sudoku
 
-DATA_PER_TYPE = 10
+DATA_PER_TYPE = 1
 OUTPUT_PATH = "data/processed/exs.pl"
 
 # Load the dataset
@@ -34,7 +34,7 @@ def get_data(data_per_type=DATA_PER_TYPE, output_path=OUTPUT_PATH):
         exs_str = s.print_exs_format()
         for type in ['row', 'col', 'block']:
             for idx in range(9):
-                    exs_fake = s.print_exs_format_fake_duplicate(type, idx)
+                    exs_fake = s.print_exs_format_isolated_errors(type, idx)
                     exs_lines.append(exs_fake)
         exs_lines.append(exs_str)
 
