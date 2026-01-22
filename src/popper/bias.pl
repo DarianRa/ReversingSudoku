@@ -51,6 +51,6 @@ enable_recursion.
 % Rec:  inv1(L)  :- head(L,H), valid_piece(H), tail(L,T), inv1(T). (5 lits)
 % Base: inv1(L)  :- empty(L). (2 lits)
 max_clauses(3).
-max_body(28).
-max_vars(28).
+max_body(14).
+max_vars(20).
 max_size(16).
