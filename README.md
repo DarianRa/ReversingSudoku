@@ -10,3 +10,14 @@ Usage of virtual environment:
 python3 -m venv venv source venv/bin/activate pip3 install -r requirements.txt
 
 python3 src/run_popper.py --bk src/popper/bk.pl --bias src/popper/bias.pl --exs src/popper/exs.pl --force-recall --timeout 1200
+
+An optimal solution would have looked the following: 
+
+
+valid_sudoku(A) :- 
+    rows(A, B),   all_valid(B), 
+    cols(A, C),   all_valid(C), 
+    blocks(A, D), all_valid(D).
+
+all_valid(A) :- empty(A).
+all_valid(A) :- head(A, B), valid_piece(B), tail(A, C), all_valid(C).
